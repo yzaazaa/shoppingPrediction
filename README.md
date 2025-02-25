@@ -68,14 +68,14 @@ The script provides functions for handling the shopping dataset and training the
 
 * **load_data(filename):**
 
-* Loads and preprocesses shopping data from a CSV file.
-* Returns structured evidence and corresponding labels.
+	* Loads and preprocesses shopping data from a CSV file.
+	* Returns structured evidence and corresponding labels.
 
 * **train_model(evidence, labels):**
 
-* Trains a k-NN classifier using the given dataset.
-* Returns the trained model.
+	* Trains a k-NN classifier using the given dataset.
+	* Returns the trained model.
 
 * **evaluate(labels, predictions):**
 
-* Computes model accuracy based on true labels and predictions.
+	* Computes model accuracy based on true labels and predictions.
