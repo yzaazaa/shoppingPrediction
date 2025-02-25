@@ -28,26 +28,37 @@ pip install -r requirements.txt
 ```
 4. Run the script:
 ```
-python shopping.py
+python shopping.py shopping.csv
 ```
 **Example**
 ```python
-from shopping import load_data, train_model
+ if len(sys.argv) != 2:
+        sys.exit("Usage: python shopping.py data")
 
-# Load dataset
-evidence, labels = load_data("shopping.csv")
+    # Load data from spreadsheet and split into train and test sets
+    evidence, labels = load_data(sys.argv[1])
+    X_train, X_test, y_train, y_test = train_test_split(
+        evidence, labels, test_size=TEST_SIZE
+    )
 
-# Train model
-model = train_model(evidence, labels)
+    # Train model and make predictions
+    model = train_model(X_train, y_train)
+    predictions = model.predict(X_test)
+    sensitivity, specificity = evaluate(y_test, predictions)
 
-# Example prediction
-prediction = model.predict([evidence[0]])
-print("Prediction:", prediction)
+    # Print results
+    print(f"Correct: {(y_test == predictions).sum()}")
+    print(f"Incorrect: {(y_test != predictions).sum()}")
+    print(f"True Positive Rate: {100 * sensitivity:.2f}%")
+    print(f"True Negative Rate: {100 * specificity:.2f}%")
 ```
 
 **Output Example:**
 ```bash
-Prediction: [1]
+Correct: 4067
+Incorrect: 865
+True Positive Rate: 38.65%
+True Negative Rate: 90.36%
 ```
 (A prediction of 1 indicates the customer is likely to make a purchase, while 0 indicates they are not.)
 
